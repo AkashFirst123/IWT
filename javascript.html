@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <title>Calculator</title>
+    <style type="text/css">
+        body {
+            background-color: #b1bfb0;
+        }
+        .calc {
+            width: 400px;
+            height: 450px;
+            margin: 50px;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: #d5d0d2;
+            box-shadow: 0px 10px 5px #d5d0d2;
+        }
+        .calc button {
+            border: none;
+            width: 90px;
+            height: 50px;
+            padding: 15px;
+            background-color: #464545;
+            color: white;
+            font-weight: bolder;
+            border-radius: 100px;
+            justify-content: center;
+            font-size: 20px;
+            margin: 2px;
+            transition: 0.5s linear;
+        }
+        .calc button:hover {
+            background-color: #f5682f;
+            color: white;
+        }
+        #inputArea {
+            width: 380px;
+            height: 100px;
+            background-color: #535253;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            font-size: 30px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .blue {
+            background-color: #3475c9;
+            color: white;
+        }
+        #green {
+            background-color: #2b8c2a;
+            color: white;
+        }
+        #blue {
+            background-color: blue;
+            color: white;
+        }
+        #bracket, #modulus, #divide, #multi, #minus, #plus {
+            background-color: #3475c9;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <div class="calc">
+        <form name="calculator">
+            <input type="text" id="inputArea" readonly>
+            <div class="calcButton">
+                <button type="button" id="root">√</button>
+                <button type="button" id="pi">π</button>
+                <button type="button" id="cap">^</button>
+                <button type="button" id="exclamation">!</button>
+                <button type="button" id="green">AC</button>
+                <button type="button" id="bracket">( )</button>
+                <button type="button" id="modulus">%</button>
+                <button type="button" id="divide">/</button>
+                <button type="button">7</button>
+                <button type="button">8</button>
+                <button type="button">9</button>
+                <button type="button" id="multi">X</button>
+                <button type="button">4</button>
+                <button type="button">5</button>
+                <button type="button">6</button>
+                <button type="button" id="minus">-</button>
+                <button type="button">1</button>
+                <button type="button">2</button>
+                <button type="button">3</button>
+                <button type="button" id="plus">+</button>
+                <button type="button">0</button>
+                <button type="button">.</button>
+                <button type="button">x</button>
+                <button type="button" id="blue">=</button>
+            </div>
+        </form>
+    </div>
+    </center>
+
+    <script>
+        // Get all buttons and input field
+        const inputArea = document.getElementById('inputArea');
+        const buttons = document.querySelectorAll('.calc button');
+
+        // Array to store the value as string
+        let expression = '';
+
+        // Handle button clicks
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const value = e.target.innerText;
+
+                switch (value) {
+                    case 'AC': // Clear the display
+                        expression = '';
+                        inputArea.value = '';
+                        break;
+                    case '√': // Square root
+                        expression = Math.sqrt(eval(expression));
+                        inputArea.value = expression;
+                        break;
+                    case 'π': // Pi value
+                        expression += Math.PI;
+                        inputArea.value = expression;
+                        break;
+                    case '^': // Exponentiation
+                        expression += '**';
+                        inputArea.value = expression;
+                        break;
+                    case '!': // Factorial calculation
+                        expression = factorial(parseInt(expression));
+                        inputArea.value = expression;
+                        break;
+                    case '=': // Evaluate the expression
+                        try {
+                            expression = eval(expression);
+                            inputArea.value = expression;
+                        } catch (error) {
+                            inputArea.value = 'Error';
+                        }
+                        break;
+                    case 'X':
+                        expression +='*';
+                        inputArea.value=expression;
+                        break;
+                    default: // Append value to the expression
+                        expression += value;
+                        inputArea.value = expression;
+                        break;
+                }
+            });
+        });
+
+        // Factorial function
+        function factorial(n) {
+            if (n === 0 || n === 1) return 1;
+            return n * factorial(n - 1);
+        }
+    </script>
+</body>
+</html>
